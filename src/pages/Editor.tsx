@@ -18,7 +18,6 @@ import Spinner from '@/components/Spinner';
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
-
 const EditorPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'code' | 'preview'>('code');
   const [currentFile, setCurrentFile] = useState('');
@@ -43,7 +42,7 @@ const EditorPage: React.FC = () => {
 
   async function init() {
     try{
-      const response = await axios.post(`${process.env.BACKEND_URL}/template`, {
+      const response = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/template`, {
         prompt
       }, {
         headers: {
@@ -58,7 +57,7 @@ const EditorPage: React.FC = () => {
         content: prompt
       })))
 
-      const codeResponse = await axios.post(`${process.env.BACKEND_URL}/chat`, {
+      const codeResponse = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/chat`, {
         messages: [...prompts, prompt].map((prompt) => ({
           role: "user",
           content: prompt
@@ -192,7 +191,6 @@ const EditorPage: React.FC = () => {
         
       }))
     }
-    console.log(files);
   }, [steps, files]);
 
   const downloadZip = async () => {
@@ -256,7 +254,7 @@ const EditorPage: React.FC = () => {
             onClick={async ()=>{
               try{
                 setIsUserInputOpen(false)
-                const codeResponse = await axios.post(`${process.env.BACKEND_URL}/chat`, {
+                const codeResponse = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/chat`, {
                   messages: [
                     ...backendMessages,
                     {
