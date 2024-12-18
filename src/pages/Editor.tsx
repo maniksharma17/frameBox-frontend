@@ -8,7 +8,6 @@ import FileExplorer from '../components/FileExplorer';
 import Steps from '../components/Steps';
 import { FileStructure, Step, StepType } from '../types';
 import axios from "axios"
-import {BACKEND_URL} from "../../config"
 import { parseXmlAndGenerateSteps, parseXmlToJsonSteps } from '../steps';
 import { useLocation } from 'react-router-dom';
 import { useWebContainer } from '../hooks/useContainer';
@@ -44,7 +43,7 @@ const EditorPage: React.FC = () => {
 
   async function init() {
     try{
-      const response = await axios.post(`${BACKEND_URL}/template`, {
+      const response = await axios.post(`${process.env.BACKEND_URL}/template`, {
         prompt
       }, {
         headers: {
@@ -59,7 +58,7 @@ const EditorPage: React.FC = () => {
         content: prompt
       })))
 
-      const codeResponse = await axios.post(`${BACKEND_URL}/chat`, {
+      const codeResponse = await axios.post(`${process.env.BACKEND_URL}/chat`, {
         messages: [...prompts, prompt].map((prompt) => ({
           role: "user",
           content: prompt
@@ -257,7 +256,7 @@ const EditorPage: React.FC = () => {
             onClick={async ()=>{
               try{
                 setIsUserInputOpen(false)
-                const codeResponse = await axios.post(`${BACKEND_URL}/chat`, {
+                const codeResponse = await axios.post(`${process.env.BACKEND_URL}/chat`, {
                   messages: [
                     ...backendMessages,
                     {
