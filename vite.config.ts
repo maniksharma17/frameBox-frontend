@@ -8,6 +8,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  base: "/frameBox-frontend",
   server: {
     headers: {
       "Cross-Origin-Embedder-Policy": "require-corp",
